@@ -47,6 +47,7 @@ class CategoryController extends Controller
             if ($category->update(Input::all())) {
                 return jsonPrint('success', 'saved', ['result' => $category]);
             }
+
             return jsonPrint('error', 'not.saved');
         }
 
@@ -59,6 +60,7 @@ class CategoryController extends Controller
             if ($category->delete()) {
                 return jsonPrint('success', 'deleted');
             }
+
             return jsonPrint('error', 'not.deleted');
         }
 

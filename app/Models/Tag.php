@@ -4,7 +4,9 @@
 namespace App\Models;
 
 
-class Tags extends Model
+class Tag extends Model
 {
     protected $table = 'tags';
+
+    protected $fillable = ['name'];
 }
