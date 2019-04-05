@@ -10,7 +10,7 @@ class CategoryController extends Controller
 {
     public function index()
     {
-        return Category::all()->toJson(JSON_PRETTY_PRINT);
+        return jsonPrint('success', null, ['result' => Category::all()]);
     }
 
     public function store(Request $request)
@@ -21,18 +21,19 @@ class CategoryController extends Controller
         ]);
 
         if ($category = Category::create(Input::all())) {
-            return json_encode(['status' => 'success', 'result' => $category], JSON_PRETTY_PRINT);
+            return jsonPrint('success', 'saved', ['result' => $category]);
         }
-        return json_encode(['status' => 'error', 'description' => 'Unable to save request'], JSON_PRETTY_PRINT);
+
+        return jsonPrint('error', 'not.saved');
     }
 
     public function show($category)
     {
         if ($category = Category::find($category)) {
-            return $category->toJson(JSON_PRETTY_PRINT);
+            return jsonPrint('success', null, ['result' => $category]);
         }
 
-        return json_encode(['status' => 'error', 'description' => 'Unable to find resources'], JSON_PRETTY_PRINT);
+        return jsonPrint('error', 'not.found');
     }
 
     public function update(Request $request, $category)
@@ -44,23 +45,23 @@ class CategoryController extends Controller
 
         if ($category = Category::find($category)) {
             if ($category->update(Input::all())) {
-                return json_encode(['status' => 'success', 'result' => $category], JSON_PRETTY_PRINT);
+                return jsonPrint('success', 'saved', ['result' => $category]);
             }
-            return json_encode(['status' => 'error', 'description' => 'Unable to save request'], JSON_PRETTY_PRINT);
+            return jsonPrint('error', 'not.saved');
         }
 
-        return json_encode(['status' => 'error', 'description' => 'Unable to find resources'], JSON_PRETTY_PRINT);
+        return jsonPrint('error', 'not.found');
     }
 
     public function delete($category)
     {
         if ($category = Category::find($category)) {
             if ($category->delete()) {
-                return json_encode(['status' => 'success', 'description' => 'Resource successfully deleted'], JSON_PRETTY_PRINT);
+                return jsonPrint('success', 'deleted');
             }
-            return json_encode(['status' => 'error', 'description' => 'Unable to delete resource'], JSON_PRETTY_PRINT);
+            return jsonPrint('error', 'not.deleted');
         }
 
-        return json_encode(['status' => 'error', 'description' => 'Unable to find resources'], JSON_PRETTY_PRINT);
+        return jsonPrint('error', 'not.found');
     }
 }
