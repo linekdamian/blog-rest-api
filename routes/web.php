@@ -25,9 +25,17 @@ $router->delete('/category/{category}', ['as' => 'category.delete', 'uses' => 'C
 /**
  * Tag
  */
-
 $router->get('/tag', ['as' => 'tag.index', 'uses' => 'TagController@index']);
 $router->post('/tag', ['as' => 'tag.store', 'uses' => 'TagController@store']);
 $router->get('/tag/{tag}', ['as' => 'tag.show', 'uses' => 'TagController@show']);
 $router->put('/tag/{tag}', ['as' => 'tag.update', 'uses' => 'TagController@update']);
 $router->delete('/tag/{tag}', ['as' => 'tag.delete', 'uses' => 'TagController@delete']);
+
+/**
+ * Post
+ */
+$router->get('/post', ['as' => 'post.index', 'uses' => 'PostController@index']);
+$router->post('/post', ['as' => 'post.store', 'uses' => 'PostController@store']);
+$router->get('/post/{post}', ['as' => 'post.show', 'uses' => 'PostController@show']);
+$router->put('/post/{post}', ['as' => 'post.update', 'uses' => 'PostController@update']);
+$router->delete('/post/{post}', ['as' => 'post.delete', 'uses' => 'PostController@delete']);

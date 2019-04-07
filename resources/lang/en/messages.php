@@ -6,4 +6,5 @@ return [
     'not.found' => 'Unable to find resources',
     'deleted' => 'Resource successfully deleted',
     'not.deleted' => 'Unable to delete resource',
+    'incorrect' => 'Incorrect data provided',
 ];

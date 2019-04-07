@@ -16,7 +16,7 @@ class TagController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'name' => 'required|string',
+            'name' => 'required|string|unique:tags',
         ]);
 
         if ($tag = Tag::create(Input::all())) {
@@ -38,7 +38,7 @@ class TagController extends Controller
     public function update(Request $request, $tag)
     {
         $this->validate($request, [
-            'name' => 'required|string',
+            'name' => 'required|string|unique:tags',
         ]);
 
         if ($tag = Tag::find($tag)) {
