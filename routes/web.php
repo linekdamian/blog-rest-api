@@ -13,29 +13,31 @@
 
 $router->get('/', ['as' => 'home', 'uses' => 'HomeController@index']);
 
-/**
- * Categories
- */
-$router->get('/category', ['as' => 'category.index', 'uses' => 'CategoryController@index']);
-$router->post('/category', ['as' => 'category.store', 'uses' => 'CategoryController@store']);
-$router->get('/category/{category}', ['as' => 'category.show', 'uses' => 'CategoryController@show']);
-$router->put('/category/{category}', ['as' => 'category.update', 'uses' => 'CategoryController@update']);
-$router->delete('/category/{category}', ['as' => 'category.delete', 'uses' => 'CategoryController@delete']);
+$router->group(['prefix' => 'blog'], function () use ($router) {
+    /**
+     * Categories
+     */
+    $router->get('/category', ['uses' => 'CategoryController@index']);
+    $router->post('/category', ['uses' => 'CategoryController@store']);
+    $router->get('/category/{category}', ['uses' => 'CategoryController@show']);
+    $router->put('/category/{category}', ['uses' => 'CategoryController@update']);
+    $router->delete('/category/{category}', ['uses' => 'CategoryController@delete']);
 
-/**
- * Tag
- */
-$router->get('/tag', ['as' => 'tag.index', 'uses' => 'TagController@index']);
-$router->post('/tag', ['as' => 'tag.store', 'uses' => 'TagController@store']);
-$router->get('/tag/{tag}', ['as' => 'tag.show', 'uses' => 'TagController@show']);
-$router->put('/tag/{tag}', ['as' => 'tag.update', 'uses' => 'TagController@update']);
-$router->delete('/tag/{tag}', ['as' => 'tag.delete', 'uses' => 'TagController@delete']);
+    /**
+     * Tag
+     */
+    $router->get('/tag', ['uses' => 'TagController@index']);
+    $router->post('/tag', ['uses' => 'TagController@store']);
+    $router->get('/tag/{tag}', ['uses' => 'TagController@show']);
+    $router->put('/tag/{tag}', ['uses' => 'TagController@update']);
+    $router->delete('/tag/{tag}', ['uses' => 'TagController@delete']);
 
-/**
- * Post
- */
-$router->get('/post', ['as' => 'post.index', 'uses' => 'PostController@index']);
-$router->post('/post', ['as' => 'post.store', 'uses' => 'PostController@store']);
-$router->get('/post/{post}', ['as' => 'post.show', 'uses' => 'PostController@show']);
-$router->put('/post/{post}', ['as' => 'post.update', 'uses' => 'PostController@update']);
-$router->delete('/post/{post}', ['as' => 'post.delete', 'uses' => 'PostController@delete']);
+    /**
+     * Post
+     */
+    $router->get('/post', ['uses' => 'PostController@index']);
+    $router->post('/post', ['uses' => 'PostController@store']);
+    $router->get('/post/{post}', ['uses' => 'PostController@show']);
+    $router->put('/post/{post}', ['uses' => 'PostController@update']);
+    $router->delete('/post/{post}', ['uses' => 'PostController@delete']);
+});
