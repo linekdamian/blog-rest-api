@@ -13,31 +13,36 @@
 
 $router->get('/', ['as' => 'home', 'uses' => 'HomeController@index']);
 
+$router->post('auth/login', ['uses' => 'AuthController@login']);
+
 $router->group(['prefix' => 'blog'], function () use ($router) {
     /**
      * Categories
      */
     $router->get('/category', ['uses' => 'CategoryController@index']);
-    $router->post('/category', ['uses' => 'CategoryController@store']);
     $router->get('/category/{category}', ['uses' => 'CategoryController@show']);
-    $router->put('/category/{category}', ['uses' => 'CategoryController@update']);
-    $router->delete('/category/{category}', ['uses' => 'CategoryController@delete']);
-
     /**
-     * Tag
+     * Tags
      */
     $router->get('/tag', ['uses' => 'TagController@index']);
-    $router->post('/tag', ['uses' => 'TagController@store']);
     $router->get('/tag/{tag}', ['uses' => 'TagController@show']);
-    $router->put('/tag/{tag}', ['uses' => 'TagController@update']);
-    $router->delete('/tag/{tag}', ['uses' => 'TagController@delete']);
-
     /**
-     * Post
+     * Posts
      */
     $router->get('/post', ['uses' => 'PostController@index']);
-    $router->post('/post', ['uses' => 'PostController@store']);
     $router->get('/post/{post}', ['uses' => 'PostController@show']);
-    $router->put('/post/{post}', ['uses' => 'PostController@update']);
-    $router->delete('/post/{post}', ['uses' => 'PostController@delete']);
+
+    $router->group(['middleware' => 'jwt'], function () use ($router) {
+        $router->post('/category', ['uses' => 'CategoryController@store']);
+        $router->put('/category/{category}', ['uses' => 'CategoryController@update']);
+        $router->delete('/category/{category}', ['uses' => 'CategoryController@delete']);
+
+        $router->post('/tag', ['uses' => 'TagController@store']);
+        $router->put('/tag/{tag}', ['uses' => 'TagController@update']);
+        $router->delete('/tag/{tag}', ['uses' => 'TagController@delete']);
+
+        $router->post('/post', ['uses' => 'PostController@store']);
+        $router->put('/post/{post}', ['uses' => 'PostController@update']);
+        $router->delete('/post/{post}', ['uses' => 'PostController@delete']);
+    });
 });

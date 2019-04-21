@@ -10,10 +10,10 @@
     "type": "project",
     "require": {
         "php": ">=7.1.3",
-        "mongodb/mongodb": "1.4.2",
+        "firebase/php-jwt": "^5.0",
         "laravel/lumen-framework": "5.8.*",
-        "vlucas/phpdotenv": "^3.3",
-        "ext-json:": "*"
+        "mongodb/mongodb": "1.4.2",
+        "vlucas/phpdotenv": "^3.3"
     },
     "require-dev": {
         "fzaninotto/faker": "^1.4",
