@@ -64,6 +64,7 @@ $app->singleton(
  $app->routeMiddleware([
 //     'auth' => App\Http\Middleware\Authenticate::class,
      'jwt' => App\Http\Middleware\JWTMiddleware::class,
+     'locale' => App\Http\Middleware\Locale::class,
  ]);
 
 /*

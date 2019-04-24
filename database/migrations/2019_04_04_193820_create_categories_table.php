@@ -15,7 +15,14 @@ class CreateCategoriesTable extends Migration
     {
         Schema::create('categories', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('name');
+            $table->timestamps();
+        });
+
+        Schema::create('category_translations', function (Blueprint $table) {
+            $table->bigIncrements('id');
+            $table->bigInteger('category_id');
+            $table->bigInteger('language_id');
+            $table->string('name')->nullable();
             $table->text('description')->nullable();
             $table->timestamps();
         });
@@ -29,5 +36,6 @@ class CreateCategoriesTable extends Migration
     public function down()
     {
         Schema::dropIfExists('categories');
+        Schema::dropIfExists('category_translations');
     }
 }
