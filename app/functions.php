@@ -16,5 +16,5 @@ function jsonPrint(string $status, string $description = null, array $additional
         $response = array_merge($response, $additional);
     }
 
-    return json_encode($response, JSON_PRETTY_PRINT);
+    return response()->json($response);
 }
