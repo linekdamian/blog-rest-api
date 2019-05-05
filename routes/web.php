@@ -15,7 +15,6 @@ $router->get('/', ['as' => 'home', 'uses' => 'HomeController@index']);
 
 $router->post('auth/login', ['uses' => 'AuthController@login']);
 
-//$router->group(['prefix' => '{lang}/blog', 'middleware' => 'locale'], function () use ($router) {
 $router->group(['prefix' => '{lang}', 'middleware' => 'locale'], function () use ($router) {
     /**
      * Categories
@@ -34,7 +33,7 @@ $router->group(['prefix' => '{lang}', 'middleware' => 'locale'], function () use
     $router->get('/post/{post}', ['uses' => 'PostController@show']);
 });
 
-$router->group(['middleware' => 'jwt'], function () use ($router) {
+// $router->group(['middleware' => 'jwt'], function () use ($router) {
     $router->post('/category', ['uses' => 'CategoryController@store']);
     $router->put('/category/{category}', ['uses' => 'CategoryController@update']);
     $router->delete('/category/{category}', ['uses' => 'CategoryController@delete']);
@@ -46,5 +45,4 @@ $router->group(['middleware' => 'jwt'], function () use ($router) {
     $router->post('/post', ['uses' => 'PostController@store']);
     $router->put('/post/{post}', ['uses' => 'PostController@update']);
     $router->delete('/post/{post}', ['uses' => 'PostController@delete']);
-});
-//});
+// });

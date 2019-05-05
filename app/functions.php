@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Arr;
 
-function jsonPrint(string $status, string $description = null, array $additional = [])
+function jsonPrint(string $status, string $description = '', array $additional = [])
 {
     $response = [
         'status' => trans('statuses.' . $status)

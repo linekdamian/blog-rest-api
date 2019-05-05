@@ -11,7 +11,7 @@ class CategoryController extends Controller
 {
     public function index()
     {
-        return jsonPrint('success', null, ['result' => Category::all()]);
+        return jsonPrint('success', '', ['result' => Category::all()]);
     }
 
     public function store(Request $request)
@@ -37,7 +37,7 @@ class CategoryController extends Controller
     public function show($category)
     {
         if ($category = Category::find($category)) {
-            return jsonPrint('success', null, ['result' => $category]);
+            return jsonPrint('success', '', ['result' => $category]);
         }
 
         return jsonPrint('error', 'not.found');
