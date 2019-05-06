@@ -13,9 +13,9 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 interface TranslationInterface
 {
     /**
-     * @return HasMany
+     * @return mixed
      */
-    public function translations(): HasMany;
+    public function translations();
 
     /**
      * @return mixed

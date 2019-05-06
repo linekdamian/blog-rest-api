@@ -15,11 +15,18 @@ class CreatePostsTable extends Migration
     {
         Schema::create('posts', function (Blueprint $table) {
             $table->bigIncrements('id')->unsigned();
-            $table->string('title');
-            $table->string('slug');
-            $table->text('body');
-            $table->boolean('visible')->default(false);
+            $table->boolean('draft')->default(false);
             $table->bigInteger('category_id');
+            $table->timestamps();
+        });
+
+        Schema::create('post_translations', function (Blueprint $table) {
+            $table->bigIncrements('id')->unsigned();
+            $table->bigInteger('post_id');
+            $table->bigInteger('language_id');
+            $table->string('title');
+            $table->string('slug')->nullable();
+            $table->text('body')->nullable();
             $table->timestamps();
         });
     }
@@ -32,5 +39,6 @@ class CreatePostsTable extends Migration
     public function down()
     {
         Schema::dropIfExists('posts');
+        Schema::dropIfExists('post_translations');
     }
 }

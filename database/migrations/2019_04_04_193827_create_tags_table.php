@@ -15,7 +15,14 @@ class CreateTagsTable extends Migration
     {
         Schema::create('tags', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('name')->unique();
+            $table->timestamps();
+        });
+
+        Schema::create('tag_translations', function (Blueprint $table) {
+            $table->bigIncrements('id');
+            $table->bigInteger('tag_id');
+            $table->bigInteger('language_id');
+            $table->string('name')->nullable();
             $table->timestamps();
         });
     }
@@ -28,5 +35,6 @@ class CreateTagsTable extends Migration
     public function down()
     {
         Schema::dropIfExists('tags');
+        Schema::dropIfExists('tag_translations');
     }
 }

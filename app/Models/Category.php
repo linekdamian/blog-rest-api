@@ -4,16 +4,16 @@
 namespace App\Models;
 
 
-use App\Models\Interfaces\TranslationInterface;
 use App\Models\Translations\CategoryTranslation;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Facades\DB;
 
 /**
  * Class Category
+ *
  * @package App\Models
  */
-class Category extends Model implements TranslationInterface
+class Category extends Model
 {
     /**
      * @var string
@@ -23,7 +23,12 @@ class Category extends Model implements TranslationInterface
     /**
      * @var array
      */
-    protected $with = ['translations'];
+    protected $with = ['posts'];
+
+    /**
+     * @var array
+     */
+    protected $appends = ['name', 'description'];
 
     /**
      * @return HasMany
@@ -39,33 +44,6 @@ class Category extends Model implements TranslationInterface
     public function translations(): HasMany
     {
         return $this->hasMany(CategoryTranslation::class);
-    }
-
-    /**
-     * @return \Illuminate\Database\Eloquent\Model|HasMany|mixed|object|null
-     */
-    public function translation()
-    {
-        $language = Language::findByCode(app('translator')->getLocale());
-
-        return $this->translations()->where('language_id', $language->id)->first() ?? $this->engTranslation();
-    }
-
-    /**
-     * @return \Illuminate\Database\Eloquent\Model|HasMany|object|null
-     */
-    public function engTranslation()
-    {
-        return $this->translations()->where('language_id', Language::eng()->id)->first();
-    }
-
-    /**
-     * @param string $code
-     * @return \Illuminate\Database\Eloquent\Model|HasMany|mixed|object|null
-     */
-    public function findTranslationByCode(string $code)
-    {
-        return $this->translations()->where('language_id', Language::findByCode($code)->id)->first();
     }
 
     /**
@@ -130,5 +108,41 @@ class Category extends Model implements TranslationInterface
 
         DB::commit();
         return $this->load('translations');
+    }
+
+    /**
+     * @return bool
+     */
+    public function delete(): bool
+    {
+        DB::beginTransaction();
+
+        try {
+            $this->translations()->delete();
+            parent::delete();
+        } catch (\Exception $exception) {
+            DB::rollback();
+            return false;
+        }
+
+        DB::commit();
+
+        return true;
+    }
+
+    /**
+     * @return string
+     */
+    public function getNameAttribute(): string
+    {
+        return $this->translation()->name ?? $this->engTranslation()->name;
+    }
+
+    /**
+     * @return string
+     */
+    public function getDescriptionAttribute(): string
+    {
+        return $this->translation()->description ?? $this->engTranslation()->description;
     }
 }
