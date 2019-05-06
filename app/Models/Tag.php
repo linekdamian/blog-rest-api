@@ -39,6 +39,13 @@ class Tag extends Model
         return $this->belongsToMany(Post::class)->using(Post_Tag::class);
     }
 
+    public static function findByName($name)
+    {
+        return self::whereHas('translations', function ($query) use ($name) {
+            $query->where('name', $name);
+        })->first();
+    }
+
     /**
      * @return HasMany
      */
@@ -132,9 +139,9 @@ class Tag extends Model
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getNameAttribute(): string
+    public function getNameAttribute(): ?string
     {
         return $this->translation()->name ?? $this->engTranslation()->name;
     }

@@ -33,6 +33,7 @@ $router->group(['prefix' => '{lang}', 'middleware' => 'locale'], function () use
     $router->get('/post/{post}', ['uses' => 'PostController@show']);
 });
 
+// TODO JWT
 // $router->group(['middleware' => 'jwt'], function () use ($router) {
     $router->post('/category', ['uses' => 'CategoryController@store']);
     $router->put('/category/{category}', ['uses' => 'CategoryController@update']);
